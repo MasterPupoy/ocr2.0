@@ -1,0 +1,35 @@
+{
+  "name" : "corpus1",
+  "locale" : "en-US",
+  "data" : [
+  ],
+  "entities" : {
+    "skill": {
+      "options": {
+        "html": [
+          "HTML",
+          "html",
+          "Html",
+          "Hyper Text Markup Language"
+        ],
+        "linux": [
+          "linux",
+          "Linux",
+          "Ubuntu",
+          "ubuntu",
+          "Fedora",
+          "Arch Linux",
+          "arch"
+        ]
+      }
+    },
+    "job" : {
+      "options": {
+        "software engineer": [
+          "Software engineer",
+          "software engineering"
+        ]
+      }
+    }
+  }
+}
