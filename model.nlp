@@ -18128,12 +18128,6 @@
               ]
             },
             {
-              "option": "college education planning",
-              "texts": [
-                "college education planning"
-              ]
-            },
-            {
               "option": "career path planning",
               "texts": [
                 "career path planning"
@@ -24089,12 +24083,6 @@
               "option": "community engagement",
               "texts": [
                 "community engagement"
-              ]
-            },
-            {
-              "option": "college teaching",
-              "texts": [
-                "college teaching"
               ]
             },
             {
@@ -34895,12 +34883,6 @@
               "option": "analytical methods development",
               "texts": [
                 "analytical methods development"
-              ]
-            },
-            {
-              "option": "ecollege",
-              "texts": [
-                "ecollege"
               ]
             },
             {
@@ -54812,12 +54794,6 @@
               ]
             },
             {
-              "option": "college applications",
-              "texts": [
-                "college applications"
-              ]
-            },
-            {
               "option": "antiterrorism",
               "texts": [
                 "antiterrorism"
@@ -63818,12 +63794,6 @@
               ]
             },
             {
-              "option": "college ministry",
-              "texts": [
-                "college ministry"
-              ]
-            },
-            {
               "option": "promodel",
               "texts": [
                 "promodel"
@@ -65699,12 +65669,6 @@
               "option": "cadworx plant",
               "texts": [
                 "cadworx plant"
-              ]
-            },
-            {
-              "option": "college football",
-              "texts": [
-                "college football"
               ]
             },
             {
@@ -77744,12 +77708,6 @@
               ]
             },
             {
-              "option": "college savings plans",
-              "texts": [
-                "college savings plans"
-              ]
-            },
-            {
               "option": "project facilitation",
               "texts": [
                 "project facilitation"
@@ -87287,12 +87245,6 @@
               "option": "boardmaker",
               "texts": [
                 "boardmaker"
-              ]
-            },
-            {
-              "option": "college",
-              "texts": [
-                "college"
               ]
             },
             {
@@ -97800,6 +97752,90 @@
               "option": "Web Developer",
               "texts": [
                 "web developer"
+              ]
+            },
+            {
+              "option": "Department Head",
+              "texts": [
+                "department head"
+              ]
+            },
+            {
+              "option": "Customer Support",
+              "texts": [
+                "customer support"
+              ]
+            }
+          ]
+        },
+        "education": {
+          "name": "education",
+          "type": "enum",
+          "rules": [
+            {
+              "option": "High School",
+              "texts": [
+                "high school"
+              ]
+            },
+            {
+              "option": "College",
+              "texts": [
+                "college"
+              ]
+            },
+            {
+              "option": "college",
+              "texts": [
+                "college"
+              ]
+            },
+            {
+              "option": "University",
+              "texts": [
+                "university"
+              ]
+            },
+            {
+              "option": "School",
+              "texts": [
+                "school"
+              ]
+            },
+            {
+              "option": "Elementary",
+              "texts": [
+                "elementary"
+              ]
+            },
+            {
+              "option": "State University",
+              "texts": [
+                "state university"
+              ]
+            },
+            {
+              "option": "Institute of Technology",
+              "texts": [
+                "institute of technology"
+              ]
+            },
+            {
+              "option": "Bootcamp",
+              "texts": [
+                "bootcamp"
+              ]
+            },
+            {
+              "option": "Boot camp",
+              "texts": [
+                "boot camp"
+              ]
+            },
+            {
+              "option": "Academy",
+              "texts": [
+                "academy"
               ]
             }
           ]

@@ -1,6 +1,14 @@
 const { NlpManager } = require('node-nlp');
 const fs = require('fs');
 
+const pdf_extract = require('pdf-extract');
+const options = {
+  type : 'ocr',
+  ocr_flags: [
+    '--psm 3'
+  ]
+}
+
 
 module.exports = class nlp {
   constructor() {
@@ -13,21 +21,21 @@ module.exports = class nlp {
   async train(manualPath) {
     console.log(fs.existsSync('./model.nlp'))
     if(fs.existsSync('./model.nlp')){
-      console.log('mounting existing model \n');
+      console.log('Mounting existing model...');
       await this.manager.load('./model.nlp');
-      console.log('model mounted \n');
+      console.log('Model mounted successfully!');
     }else{
       if(manualPath){
         console.log(`No model found. Training nlp with ${manualPath}`)
         await this.manager.addCorpus(manualPath);
         await this.manager.train();
         await this.manager.save();
-        console.log('Training complete \n');
+        console.log('Training complete! \n');
       }
     }
   };
 
-  async evaluate() {
+  async interactive() {
 
     process.stdout.write('enter string to process: ')
     process.stdin.on('data', async (data) => {
@@ -44,5 +52,60 @@ module.exports = class nlp {
     for(let i = 0; i < conv.length; i++){
       this.manager.addNerRuleOptionTexts('en', 'skill', data.name, data.options);
     };
+  };
+
+  async processPDF(absolutepath){
+
+    console.log('Processing resume. Please wait...');
+
+    const processor = pdf_extract(absolutepath, options, (err) => {
+      if(err){
+        return new Error(err);
+      }
+    })
+    
+    let result = await new Promise((resolve, reject) => { 
+      console.log('File grabbed. Parsing now... ')
+      processor.on('complete', async function (data) {
+        let pages = await data.text_pages;
+    
+        let text;
+
+        if(pages.length > 0){
+          text = pages.join('');
+        }else{
+          text = pages[0];
+        }
+        console.log(text);
+
+        let replaced = text.split('\n').join(' ').split('. ');
+        console.log(replaced);
+        resolve(replaced)
+      })
+      
+      processor.on('error', error => {
+        console.log(err);
+        reject(new Error(error));
+      });
+    })
+
+    console.time('processing');
+    let final = Promise.all(result.map(async data => {
+
+      let processed = await this.manager.process('en', data.toString().trim())
+      
+      return { 
+        utterance : processed.utterance,
+        sourceEntities : processed.sourceEntities,
+        entities : processed.entities,
+        classifications: processed.classifications
+      }
+    })
+    )
+    console.timeEnd('processing');
+
+    return final;
+    
   }
+
 }
