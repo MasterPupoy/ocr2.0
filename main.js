@@ -7,7 +7,7 @@ const fs = require('fs');
   const NLP = new nlp();
 
   await NLP.train(manualPath);
-  const result = await NLP.processPDF('./uploads/AryanResume\'.pdf').then(result => {
+  const result = await NLP.processPDF('./uploads/Resume.pdf').then(result => {
     
     for(let i = 0; i < result.length; i++){
       console.log(result[i].entities)

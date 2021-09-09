@@ -35,6 +35,26 @@
       "options" : {
         
       }
+    },
+    "barangays" : {
+      "options" : {
+
+      }
+    },
+    "municipalities" : {
+      "options" : {
+
+      }
+    },
+    "provinces" : {
+      "options" : {
+
+      }
+    },
+    "soft_skills" : {
+      "options" : {
+
+      }
     }
   }
 }

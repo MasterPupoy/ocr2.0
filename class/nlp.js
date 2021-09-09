@@ -1,5 +1,6 @@
 const { NlpManager } = require('node-nlp');
 const fs = require('fs');
+const path = require('path');
 
 const pdf_extract = require('pdf-extract');
 const options = {
@@ -15,6 +16,7 @@ module.exports = class nlp {
     this.manager = new NlpManager({ 
       languages : ['en'], 
       forceNER : true,
+      threshold : 1
     }); 
   };
 
@@ -26,7 +28,7 @@ module.exports = class nlp {
       console.log('Model mounted successfully!');
     }else{
       if(manualPath){
-        console.log(`No model found. Training nlp with ${manualPath}`)
+        console.log(`No model found. Training nlp with ${path.basename(manualPath)}`)
         await this.manager.addCorpus(manualPath);
         await this.manager.train();
         await this.manager.save();
@@ -56,7 +58,11 @@ module.exports = class nlp {
 
   async processPDF(absolutepath){
 
-    console.log('Processing resume. Please wait...');
+    if(!absolutepath){
+      return new Error('No path was defined on processPDF');
+    }
+
+    console.log(`Processing resume ${path.basename(absolutepath)} . Please wait...`);
 
     const processor = pdf_extract(absolutepath, options, (err) => {
       if(err){
@@ -89,9 +95,9 @@ module.exports = class nlp {
       });
     })
 
-    console.time('processing');
     let final = Promise.all(result.map(async data => {
-
+      
+     
       let processed = await this.manager.process('en', data.toString().trim())
       
       return { 
@@ -102,7 +108,6 @@ module.exports = class nlp {
       }
     })
     )
-    console.timeEnd('processing');
 
     return final;
     
