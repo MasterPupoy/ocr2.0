@@ -9,9 +9,9 @@ const fs = require('fs');
   await NLP.train(manualPath);
   const result = await NLP.processPDF('./uploads/Resume.pdf').then(result => {
     
-    for(let i = 0; i < result.length; i++){
-      console.log(result[i].entities)
-    }
+    // for(let i = 0; i < result.length; i++){
+    //   console.log(result)
+    // }
 
     fs.writeFileSync('./class/training_mats/trialrun2', JSON.stringify(result), 'utf-8');
   });

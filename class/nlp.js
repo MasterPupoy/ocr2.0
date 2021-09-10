@@ -34,7 +34,7 @@ module.exports = class nlp {
         await this.manager.save();
         console.log('Training complete! \n');
       }
-    }
+    };
   };
 
   async interactive() {
@@ -62,19 +62,24 @@ module.exports = class nlp {
       return new Error('No path was defined on processPDF');
     }
 
-    console.log(`Processing resume ${path.basename(absolutepath)} . Please wait...`);
+    console.log(`Processing ${path.basename(absolutepath)} . Please wait...`);
 
     const processor = pdf_extract(absolutepath, options, (err) => {
       if(err){
         return new Error(err);
       }
     })
+
+    console.time('processing');
     
     let result = await new Promise((resolve, reject) => { 
       console.log('File grabbed. Parsing now... ')
+      
+      const manage = this.manager
+      
       processor.on('complete', async function (data) {
         let pages = await data.text_pages;
-    
+        
         let text;
 
         if(pages.length > 0){
@@ -86,7 +91,20 @@ module.exports = class nlp {
 
         let replaced = text.split('\n').join(' ').split('. ');
         console.log(replaced);
-        resolve(replaced)
+
+        let final = Promise.all(replaced.map(async data => {
+          let processed = await manage.process('en', data.toString().trim())
+      
+          return { 
+            utterance : processed.utterance,
+            sourceEntities : processed.sourceEntities,
+            entities : processed.entities,
+            classifications: processed.classifications
+          }
+
+        }))
+
+        resolve(final)
       })
       
       processor.on('error', error => {
@@ -95,21 +113,23 @@ module.exports = class nlp {
       });
     })
 
-    let final = Promise.all(result.map(async data => {
+    console.timeEnd('processing');
+
+    // let final = Promise.all(result.map(async data => {
       
      
-      let processed = await this.manager.process('en', data.toString().trim())
+    //   let processed = await this.manager.process('en', data.toString().trim())
       
-      return { 
-        utterance : processed.utterance,
-        sourceEntities : processed.sourceEntities,
-        entities : processed.entities,
-        classifications: processed.classifications
-      }
-    })
-    )
+    //   return { 
+    //     utterance : processed.utterance,
+    //     sourceEntities : processed.sourceEntities,
+    //     entities : processed.entities,
+    //     classifications: processed.classifications
+    //   }
+    // })
+    // )
 
-    return final;
+    return result;
     
   }
 
