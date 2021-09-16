@@ -4,7 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon index.js",
+    "restart": "nodemon index.js"
   },
   "author": "ats team",
   "license": "ISC",
@@ -14,6 +15,10 @@
     "mongodb": "^4.1.1",
     "multer": "^1.4.3",
     "node-nlp": "^4.22.1",
-    "pdf-extract": "^1.0.11"
+    "pdf-extract": "^1.0.11",
+    "uniqid": "^5.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
   }
 }
